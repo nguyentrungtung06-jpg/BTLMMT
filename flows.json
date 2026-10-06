@@ -155,6 +155,17 @@
         "className": ""
     },
     {
+        "id": "b67a1249b6d85a11",
+        "type": "ui_group",
+        "name": "Thống kê sản lượng",
+        "tab": "b4889bf6eafe91c5",
+        "order": 2,
+        "disp": true,
+        "width": 12,
+        "collapse": false,
+        "className": ""
+    },
+    {
         "id": "e6dff874e861072e",
         "type": "ui_spacer",
         "z": "8db70ae311f732e1",
@@ -239,8 +250,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 420,
-        "y": 220,
+        "x": 780,
+        "y": 240,
         "wires": [
             [
                 "440cbdde9bf30775",
@@ -265,8 +276,8 @@
         "keepMsgProperties": false,
         "delayOnStart": false,
         "startDelayTime": "",
-        "x": 610,
-        "y": 80,
+        "x": 970,
+        "y": 240,
         "wires": [
             [
                 "0f08c478c2b64afa"
@@ -291,8 +302,8 @@
         "keepMsgProperties": false,
         "delayOnStart": false,
         "startDelayTime": "",
-        "x": 1090,
-        "y": 80,
+        "x": 1390,
+        "y": 240,
         "wires": [
             [],
             []
@@ -315,8 +326,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 780,
-        "y": 220,
+        "x": 1140,
+        "y": 240,
         "wires": [
             [
                 "9104baf60cd4e3aa",
@@ -343,8 +354,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 880,
-        "y": 80,
+        "x": 1240,
+        "y": 180,
         "wires": [
             [
                 "52be7f48da40b346"
@@ -355,7 +366,7 @@
         "id": "16c87cf2121b8f80",
         "type": "inject",
         "z": "8db70ae311f732e1",
-        "name": "",
+        "name": "Giả lập Kim loại",
         "props": [
             {
                 "p": "payload"
@@ -392,8 +403,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 600,
-        "y": 220,
+        "x": 960,
+        "y": 300,
         "wires": []
     },
     {
@@ -408,8 +419,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1040,
-        "y": 220,
+        "x": 1340,
+        "y": 300,
         "wires": []
     },
     {
@@ -437,7 +448,8 @@
         "y": 380,
         "wires": [
             [
-                "a01eb95a6d295e54"
+                "a01eb95a6d295e54",
+                "e8a1f2b3c4d5e6f7"
             ]
         ]
     },
@@ -466,7 +478,8 @@
         "y": 500,
         "wires": [
             [
-                "a01eb95a6d295e54"
+                "a01eb95a6d295e54",
+                "e8a1f2b3c4d5e6f7"
             ]
         ]
     },
@@ -498,18 +511,18 @@
         "id": "9cbc96608dac920d",
         "type": "ui_button",
         "z": "8db70ae311f732e1",
-        "name": "",
+        "name": "Bật",
         "group": "dee446f26611a13d",
         "order": 1,
-        "width": 0,
-        "height": 0,
+        "width": 3,
+        "height": 1,
         "passthru": false,
-        "label": "Bật",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
+        "label": "BẬT",
+        "tooltip": "Khởi động băng chuyền",
+        "color": "#ffffff",
+        "bgcolor": "#28a745",
         "className": "",
-        "icon": "",
+        "icon": "fa-play",
         "payload": "[true]",
         "payloadType": "json",
         "topic": "topic",
@@ -518,7 +531,8 @@
         "y": 380,
         "wires": [
             [
-                "a01eb95a6d295e54"
+                "a01eb95a6d295e54",
+                "e8a1f2b3c4d5e6f7"
             ]
         ]
     },
@@ -526,27 +540,28 @@
         "id": "7cd56f5c0a728784",
         "type": "ui_button",
         "z": "8db70ae311f732e1",
-        "name": "",
+        "name": "Tắt",
         "group": "dee446f26611a13d",
         "order": 2,
-        "width": 0,
-        "height": 0,
+        "width": 3,
+        "height": 1,
         "passthru": false,
-        "label": "Tắt",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
+        "label": "TẮT",
+        "tooltip": "Dừng băng chuyền",
+        "color": "#ffffff",
+        "bgcolor": "#dc3545",
         "className": "",
-        "icon": "",
+        "icon": "fa-stop",
         "payload": "[false]",
         "payloadType": "json",
         "topic": "topic",
         "topicType": "msg",
         "x": 650,
-        "y": 460,
+        "y": 440,
         "wires": [
             [
-                "a01eb95a6d295e54"
+                "a01eb95a6d295e54",
+                "e8a1f2b3c4d5e6f7"
             ]
         ]
     },
@@ -556,8 +571,8 @@
         "z": "8db70ae311f732e1",
         "group": "dee446f26611a13d",
         "order": 4,
-        "width": 0,
-        "height": 0,
+        "width": 6,
+        "height": 1,
         "name": "",
         "label": "Hiển thị",
         "format": "{{msg.payload}}",
@@ -572,29 +587,96 @@
         "wires": []
     },
     {
-        "id": "b67a1249b6d85a11",
-        "type": "ui_group",
-        "name": "Thống kê sản lượng",
-        "tab": "b4889bf6eafe91c5",
-        "order": 2,
-        "disp": true,
+        "id": "e8a1f2b3c4d5e6f7",
+        "type": "ui_template",
+        "z": "8db70ae311f732e1",
+        "group": "dee446f26611a13d",
+        "name": "Đèn báo trạng thái",
+        "order": 5,
         "width": 6,
-        "collapse": false,
-        "className": ""
+        "height": 1,
+        "format": "<div style=\"display: flex; align-items: center; justify-content: space-between; height: 100%; padding: 4px 6px;\">\n    <span style=\"font-size: 15px; font-weight: 500; color: #555;\">Trạng thái:</span>\n    <span style=\"display: flex; align-items: center; gap: 8px;\">\n        <span style=\"width: 14px; height: 14px; border-radius: 50%; display: inline-block; transition: all 0.3s;\"\n              ng-style=\"{'background-color': ((msg.payload[0] !== undefined ? msg.payload[0] : msg.payload) ? '#28a745' : '#dc3545'),\n                         'box-shadow': ((msg.payload[0] !== undefined ? msg.payload[0] : msg.payload) ? '0 0 10px #28a745' : '0 0 10px #dc3545')}\"></span>\n        <span style=\"font-weight: bold; font-size: 15px;\"\n              ng-style=\"{'color': ((msg.payload[0] !== undefined ? msg.payload[0] : msg.payload) ? '#28a745' : '#dc3545')}\">\n            {{ (msg.payload[0] !== undefined ? msg.payload[0] : msg.payload) ? 'Đang chạy' : 'Dừng' }}\n        </span>\n    </span>\n</div>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 900,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3c4d5e6f7a8b9c0d",
+        "type": "inject",
+        "z": "8db70ae311f732e1",
+        "name": "Khởi tạo trạng thái dừng",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "status",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 670,
+        "y": 500,
+        "wires": [
+            [
+                "e8a1f2b3c4d5e6f7"
+            ]
+        ]
+    },
+    {
+        "id": "95e167d2a5c84e56",
+        "type": "ui_button",
+        "z": "8db70ae311f732e1",
+        "name": "Thêm SP Phi kim",
+        "group": "dee446f26611a13d",
+        "order": 6,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "Đếm SP Phi kim (Demo)",
+        "tooltip": "Giả lập sản phẩm không phải kim loại",
+        "color": "#ffffff",
+        "bgcolor": "#337ab7",
+        "className": "",
+        "icon": "fa-plus",
+        "payload": "non_metal",
+        "payloadType": "str",
+        "topic": "non_metal",
+        "topicType": "str",
+        "x": 130,
+        "y": 260,
+        "wires": [
+            [
+                "c8314e6b21da4320"
+            ]
+        ]
     },
     {
         "id": "c8314e6b21da4320",
         "type": "function",
         "z": "8db70ae311f732e1",
         "name": "Bộ đếm & Lọc sườn lên",
-        "func": "// Khởi tạo các biến nếu chưa có\nlet metalCount = flow.get('metalCount') || 0;\nlet totalCount = flow.get('totalCount') || 0;\nlet lastState = context.get('lastState') || false;\n\n// 1. Xử lý nút Reset\nif (msg.topic === \"reset\" || msg.payload === \"reset\") {\n    metalCount = 0;\n    totalCount = 0;\n    flow.set('metalCount', 0);\n    flow.set('totalCount', 0);\n    context.set('lastState', false);\n    return [\n        { payload: 0, topic: \"metal\" },     // Out 1: SP Kim loại\n        { payload: 0, topic: \"total\" },     // Out 2: Tổng sản phẩm\n        null                                // Out 3: Kích hoạt Solenoid\n    ];\n}\n\n// 2. Xử lý nút Giả lập SP Phi kim (Demo)\nif (msg.topic === \"non_metal\" || msg.payload === \"non_metal\") {\n    totalCount += 1;\n    flow.set('totalCount', totalCount);\n    return [\n        null,\n        { payload: totalCount, topic: \"total\" },\n        null\n    ];\n}\n\n// 3. Xử lý tín hiệu cảm biến IN1 hoặc nút test kim loại\nlet isMetal = false;\nif (Array.isArray(msg.payload)) {\n    isMetal = Boolean(msg.payload[0]);\n} else if (typeof msg.payload === \"boolean\") {\n    isMetal = msg.payload;\n}\n\n// Phát hiện sườn lên (Rising Edge: false -> true)\nif (isMetal && !lastState) {\n    context.set('lastState', true);\n    metalCount += 1;\n    totalCount += 1;\n    flow.set('metalCount', metalCount);\n    flow.set('totalCount', totalCount);\n    \n    return [\n        { payload: metalCount, topic: \"metal\" },   // Out 1: SP Kim loại\n        { payload: totalCount, topic: \"total\" },   // Out 2: Tổng sản phẩm\n        { payload: [true], topic: \"trigger\" }      // Out 3: Kích hoạt Solenoid\n    ];\n} else if (!isMetal) {\n    context.set('lastState', false);\n}\n\nreturn null;",
-        "outputs": 3,
+        "func": "// Khởi tạo các biến nếu chưa có\nlet metalCount = flow.get('metalCount') || 0;\nlet nonMetalCount = flow.get('nonMetalCount') || 0;\nlet totalCount = flow.get('totalCount') || 0;\nlet lastState = context.get('lastState') || false;\n\n// 1. Xử lý nút Reset (đã qua hộp thoại xác nhận)\nif (msg.topic === \"reset\" || msg.payload === \"reset\" || msg.payload === \"Xác nhận đặt lại\") {\n    metalCount = 0;\n    nonMetalCount = 0;\n    totalCount = 0;\n    flow.set('metalCount', 0);\n    flow.set('nonMetalCount', 0);\n    flow.set('totalCount', 0);\n    context.set('lastState', false);\n    return [\n        { payload: 0, topic: \"metal\" },         // Out 1: SP Kim loại\n        { payload: 0, topic: \"non_metal\" },     // Out 2: SP Phi kim\n        { payload: 0, topic: \"total\" },         // Out 3: Tổng sản phẩm\n        null                                    // Out 4: Kích hoạt Solenoid\n    ];\n}\n\n// 2. Xử lý nút Giả lập SP Phi kim (Demo)\nif (msg.topic === \"non_metal\" || msg.payload === \"non_metal\") {\n    nonMetalCount += 1;\n    totalCount += 1;\n    flow.set('nonMetalCount', nonMetalCount);\n    flow.set('totalCount', totalCount);\n    return [\n        null,\n        { payload: nonMetalCount, topic: \"non_metal\" },\n        { payload: totalCount, topic: \"total\" },\n        null\n    ];\n}\n\n// 3. Xử lý tín hiệu cảm biến IN1 hoặc nút test kim loại\nlet isMetal = false;\nif (Array.isArray(msg.payload)) {\n    isMetal = Boolean(msg.payload[0]);\n} else if (typeof msg.payload === \"boolean\") {\n    isMetal = msg.payload;\n}\n\n// Phát hiện sườn lên (Rising Edge: false -> true)\nif (isMetal && !lastState) {\n    context.set('lastState', true);\n    metalCount += 1;\n    totalCount += 1;\n    flow.set('metalCount', metalCount);\n    flow.set('totalCount', totalCount);\n    \n    return [\n        { payload: metalCount, topic: \"metal\" },   // Out 1: SP Kim loại\n        null,                                      // Out 2: SP Phi kim\n        { payload: totalCount, topic: \"total\" },   // Out 3: Tổng sản phẩm\n        { payload: [true], topic: \"trigger\" }      // Out 4: Kích hoạt Solenoid\n    ];\n} else if (!isMetal) {\n    context.set('lastState', false);\n}\n\nreturn null;",
+        "outputs": 4,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 330,
+        "x": 350,
         "y": 120,
         "wires": [
             [
@@ -602,10 +684,65 @@
                 "e2b834a9d2f51b23"
             ],
             [
+                "a1b2c3d4e5f67890",
+                "b2c3d4e5f6a78901"
+            ],
+            [
                 "d3c945b0e3a62c34"
             ],
             [
                 "667bdb838ac3ae9d"
+            ]
+        ]
+    },
+    {
+        "id": "a4d056c1f4b73d45",
+        "type": "ui_button",
+        "z": "8db70ae311f732e1",
+        "name": "Đặt lại bộ đếm",
+        "group": "b67a1249b6d85a11",
+        "order": 6,
+        "width": 12,
+        "height": 1,
+        "passthru": false,
+        "label": "ĐẶT LẠI BỘ ĐẾM",
+        "tooltip": "Xóa toàn bộ số đếm về 0 (có hộp thoại xác nhận)",
+        "color": "#ffffff",
+        "bgcolor": "#d9534f",
+        "className": "",
+        "icon": "fa-refresh",
+        "payload": "Bạn có chắc chắn muốn đặt lại toàn bộ số đếm về 0 không?",
+        "payloadType": "str",
+        "topic": "reset",
+        "topicType": "str",
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "c3d4e5f6a7b89012"
+            ]
+        ]
+    },
+    {
+        "id": "c3d4e5f6a7b89012",
+        "type": "ui_toast",
+        "z": "8db70ae311f732e1",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "Xác nhận đặt lại",
+        "cancel": "Hủy",
+        "raw": false,
+        "className": "",
+        "topic": "reset",
+        "name": "Xác nhận Đặt lại bộ đếm",
+        "x": 140,
+        "y": 90,
+        "wires": [
+            [
+                "c8314e6b21da4320"
             ]
         ]
     },
@@ -629,11 +766,39 @@
             "#e6e600",
             "#ca3838"
         ],
-        "seg1": "20",
-        "seg2": "40",
+        "seg1": "35",
+        "seg2": "45",
         "diff": false,
         "className": "",
-        "x": 650,
+        "x": 670,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "a1b2c3d4e5f67890",
+        "type": "ui_gauge",
+        "z": "8db70ae311f732e1",
+        "name": "Đồng hồ sản lượng phi kim",
+        "group": "b67a1249b6d85a11",
+        "order": 2,
+        "width": 6,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Sản lượng Phi kim",
+        "label": "chiếc",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 50,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "35",
+        "seg2": "45",
+        "diff": false,
+        "className": "",
+        "x": 930,
         "y": 80,
         "wires": []
     },
@@ -642,7 +807,7 @@
         "type": "ui_text",
         "z": "8db70ae311f732e1",
         "group": "b67a1249b6d85a11",
-        "order": 2,
+        "order": 3,
         "width": 6,
         "height": 1,
         "name": "SP Kim loại",
@@ -659,12 +824,33 @@
         "wires": []
     },
     {
+        "id": "b2c3d4e5f6a78901",
+        "type": "ui_text",
+        "z": "8db70ae311f732e1",
+        "group": "b67a1249b6d85a11",
+        "order": 4,
+        "width": 6,
+        "height": 1,
+        "name": "SP Phi kim",
+        "label": "SP Phi kim:",
+        "format": "{{msg.payload}} chiếc",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#ff9800",
+        "x": 910,
+        "y": 140,
+        "wires": []
+    },
+    {
         "id": "d3c945b0e3a62c34",
         "type": "ui_text",
         "z": "8db70ae311f732e1",
         "group": "b67a1249b6d85a11",
-        "order": 3,
-        "width": 6,
+        "order": 5,
+        "width": 12,
         "height": 1,
         "name": "Tổng số SP",
         "label": "Tổng sản phẩm:",
@@ -678,61 +864,5 @@
         "x": 650,
         "y": 200,
         "wires": []
-    },
-    {
-        "id": "a4d056c1f4b73d45",
-        "type": "ui_button",
-        "z": "8db70ae311f732e1",
-        "name": "Đặt lại bộ đếm",
-        "group": "b67a1249b6d85a11",
-        "order": 4,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "label": "Đặt lại bộ đếm (Reset)",
-        "tooltip": "Xóa số đếm về 0",
-        "color": "#ffffff",
-        "bgcolor": "#d9534f",
-        "className": "",
-        "icon": "fa-refresh",
-        "payload": "reset",
-        "payloadType": "str",
-        "topic": "reset",
-        "topicType": "str",
-        "x": 130,
-        "y": 140,
-        "wires": [
-            [
-                "c8314e6b21da4320"
-            ]
-        ]
-    },
-    {
-        "id": "95e167d2a5c84e56",
-        "type": "ui_button",
-        "z": "8db70ae311f732e1",
-        "name": "Thêm SP Phi kim",
-        "group": "dee446f26611a13d",
-        "order": 5,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "label": "Đếm SP Phi kim (Demo)",
-        "tooltip": "Giả lập sản phẩm không phải kim loại",
-        "color": "#ffffff",
-        "bgcolor": "#337ab7",
-        "className": "",
-        "icon": "fa-plus",
-        "payload": "non_metal",
-        "payloadType": "str",
-        "topic": "non_metal",
-        "topicType": "str",
-        "x": 130,
-        "y": 260,
-        "wires": [
-            [
-                "c8314e6b21da4320"
-            ]
-        ]
     }
 ]
