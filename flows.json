@@ -41,7 +41,7 @@
         "id": "17be6ba8dcc02fd8",
         "type": "ui_base",
         "theme": {
-            "name": "theme-light",
+            "name": "theme-dark",
             "lightTheme": {
                 "default": "#0094CE",
                 "baseColor": "#0094CE",
@@ -53,7 +53,7 @@
                 "default": "#097479",
                 "baseColor": "#097479",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": false
+                "edited": true
             },
             "customTheme": {
                 "name": "Untitled Theme 1",
@@ -63,44 +63,44 @@
             },
             "themeState": {
                 "base-color": {
-                    "default": "#0094CE",
-                    "value": "#0094CE",
+                    "default": "#097479",
+                    "value": "#097479",
                     "edited": false
                 },
                 "page-titlebar-backgroundColor": {
-                    "value": "#0094CE",
+                    "value": "#097479",
                     "edited": false
                 },
                 "page-backgroundColor": {
-                    "value": "#fafafa",
+                    "value": "#121212",
                     "edited": false
                 },
                 "page-sidebar-backgroundColor": {
-                    "value": "#ffffff",
+                    "value": "#1a1a1a",
                     "edited": false
                 },
                 "group-textColor": {
-                    "value": "#1bbfff",
+                    "value": "#0eb8c0",
                     "edited": false
                 },
                 "group-borderColor": {
-                    "value": "#ffffff",
+                    "value": "#333333",
                     "edited": false
                 },
                 "group-backgroundColor": {
-                    "value": "#ffffff",
+                    "value": "#1e2227",
                     "edited": false
                 },
                 "widget-textColor": {
-                    "value": "#111111",
+                    "value": "#eeeeee",
                     "edited": false
                 },
                 "widget-backgroundColor": {
-                    "value": "#0094ce",
+                    "value": "#097479",
                     "edited": false
                 },
                 "widget-borderColor": {
-                    "value": "#ffffff",
+                    "value": "#333333",
                     "edited": false
                 },
                 "base-font": {
@@ -108,15 +108,15 @@
                 }
             },
             "angularTheme": {
-                "primary": "indigo",
-                "accents": "blue",
+                "primary": "teal",
+                "accents": "teal",
                 "warn": "red",
                 "background": "grey",
-                "palette": "light"
+                "palette": "dark"
             }
         },
         "site": {
-            "name": "Node-RED Dashboard",
+            "name": "HMI - BĂNG CHUYỀN PHÂN LOẠI",
             "hideToolbar": "false",
             "allowSwipe": "false",
             "lockMenu": "false",
@@ -511,7 +511,7 @@
         "z": "8db70ae311f732e1",
         "name": "Bật",
         "group": "dee446f26611a13d",
-        "order": 1,
+        "order": 2,
         "width": 3,
         "height": 1,
         "passthru": false,
@@ -540,7 +540,7 @@
         "z": "8db70ae311f732e1",
         "name": "Tắt",
         "group": "dee446f26611a13d",
-        "order": 2,
+        "order": 3,
         "width": 3,
         "height": 1,
         "passthru": false,
@@ -618,17 +618,17 @@
         "type": "ui_button",
         "z": "8db70ae311f732e1",
         "name": "Thêm SP Phi kim",
-        "group": "dee446f26611a13d",
-        "order": 5,
+        "group": "group_debug_tools",
+        "order": 1,
         "width": 6,
         "height": 1,
         "passthru": false,
-        "label": "Đếm SP Phi kim (Demo)",
+        "label": "+ Giả lập SP Phi kim (Demo)",
         "tooltip": "Giả lập sản phẩm không phải kim loại",
         "color": "#ffffff",
         "bgcolor": "#337ab7",
         "className": "",
-        "icon": "fa-plus",
+        "icon": "science",
         "payload": "non_metal",
         "payloadType": "str",
         "topic": "non_metal",
@@ -663,7 +663,8 @@
         "y": 40,
         "wires": [
             [
-                "c8314e6b21da4320"
+                "c8314e6b21da4320",
+                "func_modbus_status"
             ]
         ]
     },
@@ -766,14 +767,14 @@
         "label": "chiếc",
         "format": "{{value}}",
         "min": 0,
-        "max": 50,
+        "max": "1000",
         "colors": [
             "#00b500",
             "#e6e600",
             "#ca3838"
         ],
-        "seg1": "35",
-        "seg2": "45",
+        "seg1": "700",
+        "seg2": "900",
         "diff": false,
         "className": "",
         "x": 670,
@@ -794,14 +795,14 @@
         "label": "chiếc",
         "format": "{{value}}",
         "min": 0,
-        "max": 50,
+        "max": "1000",
         "colors": [
             "#00b500",
             "#e6e600",
             "#ca3838"
         ],
-        "seg1": "35",
-        "seg2": "45",
+        "seg1": "700",
+        "seg2": "900",
         "diff": false,
         "className": "",
         "x": 930,
@@ -914,5 +915,274 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "tab_debug_maintenance",
+        "type": "ui_tab",
+        "name": "Bảo trì & Giả lập",
+        "icon": "build",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "group_debug_tools",
+        "type": "ui_group",
+        "name": "Công cụ Thử nghiệm & Giả lập",
+        "tab": "tab_debug_maintenance",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false
+    },
+    {
+        "id": "btn_debug_metal",
+        "type": "ui_button",
+        "z": "8db70ae311f732e1",
+        "name": "Giả lập SP Kim loại (Demo)",
+        "group": "group_debug_tools",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "+ Giả lập SP Kim loại (Demo)",
+        "tooltip": "Mô phỏng phát hiện vật thể kim loại qua cảm biến",
+        "color": "#ffffff",
+        "bgcolor": "#ff8f00",
+        "icon": "sensors",
+        "payload": "[true]",
+        "payloadType": "bin",
+        "topic": "metal_sim",
+        "topicType": "str",
+        "x": 420,
+        "y": 60,
+        "wires": [
+            [
+                "c8314e6b21da4320"
+            ]
+        ]
+    },
+    {
+        "id": "status_modbus_monitor",
+        "type": "status",
+        "z": "8db70ae311f732e1",
+        "name": "Bắt trạng thái Modbus",
+        "scope": [
+            "bc97ec40ddf69903",
+            "440cbdde9bf30775",
+            "52be7f48da40b346",
+            "a01eb95a6d295e54"
+        ],
+        "x": 180,
+        "y": 380,
+        "wires": [
+            [
+                "func_modbus_status"
+            ]
+        ]
+    },
+    {
+        "id": "func_modbus_status",
+        "type": "function",
+        "z": "8db70ae311f732e1",
+        "name": "Xử lý cảnh báo Modbus",
+        "func": "// Xử lý trạng thái kết nối Modbus\nlet status = msg.status || {};\nlet fill = status.fill || '';\nlet text = (status.text || '').toLowerCase();\n\n// Hỗ trợ kiểm thử từ nút giả lập trong Tab Bảo trì\nif (msg.topic === 'test_modbus_error') {\n    flow.set('modbusOnline', false);\n    return {\n        payload: {\n            isError: true,\n            title: 'LỖI KẾT NỐI MODBUS',\n            detail: 'Mất kết nối Modbus / Cáp lỏng (Giả lập kiểm thử)'\n        }\n    };\n} else if (msg.topic === 'test_modbus_ok' || msg.topic === 'init') {\n    flow.set('modbusOnline', true);\n    return {\n        payload: {\n            isError: false,\n            title: 'MODBUS RTU: TRUYỀN THÔNG ỔN ĐỊNH',\n            detail: '127.0.0.1:502 (Slave ID: 1)'\n        }\n    };\n}\n\nlet isError = (fill === 'red') || \n              text.includes('error') || \n              text.includes('timeout') || \n              text.includes('disconnected') || \n              text.includes('fail') || \n              text.includes('lỗi');\n\nlet isNormal = (fill === 'green') || (fill === 'yellow') || \n               text.includes('active') || text.includes('reading') || text.includes('connected');\n\nif (isError) {\n    flow.set('modbusOnline', false);\n} else if (isNormal) {\n    flow.set('modbusOnline', true);\n}\n\nlet online = flow.get('modbusOnline');\nif (online === undefined) online = true;\n\nreturn {\n    payload: {\n        isError: !online,\n        title: !online ? 'LỖI KẾT NỐI MODBUS' : 'MODBUS RTU: TRUYỀN THÔNG ỔN ĐỊNH',\n        detail: status.text || (!online ? 'Mất tín hiệu truyền thông / Cáp lỏng / Mất điện' : '127.0.0.1:502 (Slave ID: 1)')\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 380,
+        "wires": [
+            [
+                "template_modbus_alarm"
+            ]
+        ]
+    },
+    {
+        "id": "template_modbus_alarm",
+        "type": "ui_template",
+        "z": "8db70ae311f732e1",
+        "name": "Cảnh báo kết nối Modbus",
+        "group": "dee446f26611a13d",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "format": "<div class=\"modbus-panel\">\n    <!-- Trạng thái lỗi: Nhấp nháy đỏ cảnh báo công nghiệp -->\n    <div ng-if=\"msg.payload.isError\" class=\"modbus-box error-alert\">\n        <span class=\"alert-icon\">⚠️</span>\n        <div class=\"alert-info\">\n            <div class=\"alert-text\">LỖI KẾT NỐI MODBUS</div>\n            <div class=\"alert-sub\">{{msg.payload.detail || 'Mất kết nối / Cáp lỏng / Mất điện'}}</div>\n        </div>\n    </div>\n\n    <!-- Trạng thái bình thường: Đèn xanh ổn định -->\n    <div ng-if=\"!msg.payload.isError\" class=\"modbus-box normal-status\">\n        <span class=\"status-bulb\"></span>\n        <div class=\"normal-info\">\n            <span class=\"normal-text\">MODBUS RTU: KẾT NỐI ỔN ĐỊNH</span>\n            <span class=\"normal-sub\">Port: 502 | Slave: 1</span>\n        </div>\n    </div>\n</div>\n\n<style>\n.modbus-panel {\n    margin: 4px 0 8px 0;\n    width: 100%;\n}\n.modbus-box {\n    border-radius: 6px;\n    padding: 7px 10px;\n    display: flex;\n    align-items: center;\n    box-sizing: border-box;\n}\n.error-alert {\n    background: rgba(220, 38, 38, 0.28);\n    border: 2px solid #ef4444;\n    color: #ff4d4f;\n    animation: modbusPulse 0.8s infinite alternate ease-in-out;\n}\n.alert-icon {\n    font-size: 20px;\n    margin-right: 8px;\n}\n.alert-info {\n    display: flex;\n    flex-direction: column;\n}\n.alert-text {\n    font-size: 13px;\n    font-weight: 800;\n    color: #ff3333;\n    letter-spacing: 0.5px;\n    text-shadow: 0 0 10px rgba(255, 30, 30, 0.9);\n}\n.alert-sub {\n    font-size: 10px;\n    color: #ffa39e;\n}\n.normal-status {\n    background: rgba(16, 185, 129, 0.12);\n    border: 1px solid rgba(16, 185, 129, 0.35);\n    color: #34d399;\n}\n.status-bulb {\n    width: 9px;\n    height: 9px;\n    background-color: #10b981;\n    border-radius: 50%;\n    margin-right: 8px;\n    box-shadow: 0 0 7px #10b981;\n    display: inline-block;\n}\n.normal-info {\n    display: flex;\n    flex-direction: column;\n}\n.normal-text {\n    font-size: 11px;\n    font-weight: 700;\n    letter-spacing: 0.3px;\n}\n.normal-sub {\n    font-size: 9px;\n    color: #6ee7b7;\n    opacity: 0.85;\n}\n@keyframes modbusPulse {\n    0% {\n        opacity: 1;\n        background: rgba(220, 38, 38, 0.45);\n        border-color: #ff2222;\n        box-shadow: 0 0 14px rgba(255, 34, 34, 0.8);\n    }\n    100% {\n        opacity: 0.35;\n        background: rgba(220, 38, 38, 0.1);\n        border-color: #991b1b;\n        box-shadow: 0 0 2px rgba(255, 34, 34, 0.15);\n    }\n}\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 670,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "btn_sim_modbus_err",
+        "type": "ui_button",
+        "z": "8db70ae311f732e1",
+        "name": "Test Nháy Đỏ Lỗi Modbus",
+        "group": "group_debug_tools",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "⚠️ Test Nháy Đỏ Lỗi Modbus",
+        "tooltip": "Thử nghiệm giao diện cảnh báo khi Modbus mất tín hiệu",
+        "color": "#ffffff",
+        "bgcolor": "#c62828",
+        "icon": "warning",
+        "payload": "error",
+        "payloadType": "str",
+        "topic": "test_modbus_error",
+        "topicType": "str",
+        "x": 180,
+        "y": 440,
+        "wires": [
+            [
+                "func_modbus_status"
+            ]
+        ]
+    },
+    {
+        "id": "btn_sim_modbus_ok",
+        "type": "ui_button",
+        "z": "8db70ae311f732e1",
+        "name": "Khôi phục Modbus Bình thường",
+        "group": "group_debug_tools",
+        "order": 4,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "✓ Khôi phục Modbus Bình thường",
+        "tooltip": "Khôi phục trạng thái truyền thông Modbus ổn định",
+        "color": "#ffffff",
+        "bgcolor": "#2e7d32",
+        "icon": "check_circle",
+        "payload": "ok",
+        "payloadType": "str",
+        "topic": "test_modbus_ok",
+        "topicType": "str",
+        "x": 180,
+        "y": 480,
+        "wires": [
+            [
+                "func_modbus_status"
+            ]
+        ]
+    },
+    {
+        "id": "btn_export_report",
+        "type": "ui_button",
+        "z": "8db70ae311f732e1",
+        "name": "Nút Xuất báo cáo",
+        "group": "dee446f26611a13d",
+        "order": 5,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "XUẤT BÁO CÁO (EXCEL/CSV)",
+        "tooltip": "Tải xuống file CSV thống kê chi tiết sản lượng ca làm việc",
+        "color": "#ffffff",
+        "bgcolor": "#0288d1",
+        "icon": "file_download",
+        "payload": "export",
+        "payloadType": "str",
+        "topic": "export",
+        "topicType": "str",
+        "x": 180,
+        "y": 560,
+        "wires": [
+            [
+                "func_prep_report"
+            ]
+        ]
+    },
+    {
+        "id": "func_prep_report",
+        "type": "function",
+        "z": "8db70ae311f732e1",
+        "name": "Thu thập dữ liệu báo cáo",
+        "func": "// Thu thập dữ liệu báo cáo thống kê cuối ca\nlet metalCount = flow.get('metalCount') || 0;\nlet nonMetalCount = flow.get('nonMetalCount') || 0;\nlet totalCount = flow.get('totalCount') || 0;\n\nlet now = new Date();\nlet pad = (n) => n < 10 ? '0' + n : n;\nlet dateStr = pad(now.getDate()) + '/' + pad(now.getMonth() + 1) + '/' + now.getFullYear();\nlet timeStr = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());\n\nlet metalPercent = totalCount > 0 ? ((metalCount / totalCount) * 100).toFixed(1) + '%' : '0%';\nlet nonMetalPercent = totalCount > 0 ? ((nonMetalCount / totalCount) * 100).toFixed(1) + '%' : '0%';\n\nlet filename = 'Bao_cao_san_luong_' + now.getFullYear() + pad(now.getMonth() + 1) + pad(now.getDate()) + '_' + pad(now.getHours()) + pad(now.getMinutes()) + '.csv';\nmsg.filename = filename;\n\n// Chuẩn bị mảng bản ghi xuất CSV\nmsg.payload = [\n    {\n        \"Ngày báo cáo\": dateStr,\n        \"Thời gian\": timeStr,\n        \"SP Kim loại (chiếc)\": metalCount,\n        \"Tỉ lệ Kim loại\": metalPercent,\n        \"SP Phi kim (chiếc)\": nonMetalCount,\n        \"Tỉ lệ Phi kim\": nonMetalPercent,\n        \"Tổng sản lượng (chiếc)\": totalCount,\n        \"Trạng thái ca\": \"Hoàn tất thống kê\",\n        \"Ghi chú\": \"Hệ thống phân loại sản phẩm SCADA/HMI BTL MMT\"\n    }\n];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 560,
+        "wires": [
+            [
+                "node_csv_convert"
+            ]
+        ]
+    },
+    {
+        "id": "node_csv_convert",
+        "type": "csv",
+        "z": "8db70ae311f732e1",
+        "name": "Chuyển đổi sang CSV",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "all",
+        "multi": "one",
+        "ret": "\\r\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 650,
+        "y": 560,
+        "wires": [
+            [
+                "template_download_csv",
+                "toast_export_report"
+            ]
+        ]
+    },
+    {
+        "id": "template_download_csv",
+        "type": "ui_template",
+        "z": "8db70ae311f732e1",
+        "name": "Tự động tải file CSV",
+        "group": "dee446f26611a13d",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "format": "<script>\n(function(scope) {\n    scope.$watch('msg', function(msg) {\n        if (!msg || !msg.payload || typeof msg.payload !== 'string') return;\n        \n        // Ký tự BOM UTF-8 (\\uFEFF) giúp Microsoft Excel hiển thị đúng 100% tiếng Việt\n        var csvWithBom = '\\uFEFF' + msg.payload;\n        var blob = new Blob([csvWithBom], { type: 'text/csv;charset=utf-8;' });\n        var filename = msg.filename || ('Bao_cao_san_luong_' + new Date().toISOString().slice(0, 10) + '.csv');\n        \n        var link = document.createElement('a');\n        if (link.download !== undefined) {\n            var url = URL.createObjectURL(blob);\n            link.setAttribute('href', url);\n            link.setAttribute('download', filename);\n            link.style.visibility = 'hidden';\n            document.body.appendChild(link);\n            link.click();\n            document.body.removeChild(link);\n            window.URL.revokeObjectURL(url);\n        }\n    });\n})(scope);\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 880,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "toast_export_report",
+        "type": "ui_toast",
+        "z": "8db70ae311f732e1",
+        "position": "top right",
+        "displayTime": "4",
+        "highlight": "",
+        "sendmsg": false,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "Thông báo xuất file thành công",
+        "x": 910,
+        "y": 580,
+        "wires": []
     }
 ]
