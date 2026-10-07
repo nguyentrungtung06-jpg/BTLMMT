@@ -205,9 +205,7 @@
             [
                 "c8314e6b21da4320"
             ],
-            [
-                "3df89b7a93e9c749"
-            ]
+            []
         ]
     },
     {
@@ -566,33 +564,12 @@
         ]
     },
     {
-        "id": "3df89b7a93e9c749",
-        "type": "ui_text",
-        "z": "8db70ae311f732e1",
-        "group": "dee446f26611a13d",
-        "order": 4,
-        "width": 6,
-        "height": 1,
-        "name": "",
-        "label": "Hiển thị",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 300,
-        "y": 280,
-        "wires": []
-    },
-    {
         "id": "e8a1f2b3c4d5e6f7",
         "type": "ui_template",
         "z": "8db70ae311f732e1",
         "group": "dee446f26611a13d",
         "name": "Đèn báo trạng thái",
-        "order": 5,
+        "order": 4,
         "width": 6,
         "height": 1,
         "format": "<div style=\"display: flex; align-items: center; justify-content: space-between; height: 100%; padding: 4px 6px;\">\n    <span style=\"font-size: 15px; font-weight: 500; color: #555;\">Trạng thái:</span>\n    <span style=\"display: flex; align-items: center; gap: 8px;\">\n        <span style=\"width: 14px; height: 14px; border-radius: 50%; display: inline-block; transition: all 0.3s;\"\n              ng-style=\"{'background-color': ((msg.payload[0] !== undefined ? msg.payload[0] : msg.payload) ? '#28a745' : '#dc3545'),\n                         'box-shadow': ((msg.payload[0] !== undefined ? msg.payload[0] : msg.payload) ? '0 0 10px #28a745' : '0 0 10px #dc3545')}\"></span>\n        <span style=\"font-weight: bold; font-size: 15px;\"\n              ng-style=\"{'color': ((msg.payload[0] !== undefined ? msg.payload[0] : msg.payload) ? '#28a745' : '#dc3545')}\">\n            {{ (msg.payload[0] !== undefined ? msg.payload[0] : msg.payload) ? 'Đang chạy' : 'Dừng' }}\n        </span>\n    </span>\n</div>",
@@ -642,7 +619,7 @@
         "z": "8db70ae311f732e1",
         "name": "Thêm SP Phi kim",
         "group": "dee446f26611a13d",
-        "order": 6,
+        "order": 5,
         "width": 6,
         "height": 1,
         "passthru": false,
@@ -665,11 +642,37 @@
         ]
     },
     {
+        "id": "5a6b7c8d9e0f1a2b",
+        "type": "inject",
+        "z": "8db70ae311f732e1",
+        "name": "Khởi tạo bộ đếm lúc mở",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.2,
+        "topic": "init",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 40,
+        "wires": [
+            [
+                "c8314e6b21da4320"
+            ]
+        ]
+    },
+    {
         "id": "c8314e6b21da4320",
         "type": "function",
         "z": "8db70ae311f732e1",
         "name": "Bộ đếm & Lọc sườn lên",
-        "func": "// Khởi tạo các biến nếu chưa có\nlet metalCount = flow.get('metalCount') || 0;\nlet nonMetalCount = flow.get('nonMetalCount') || 0;\nlet totalCount = flow.get('totalCount') || 0;\nlet lastState = context.get('lastState') || false;\n\n// 1. Xử lý nút Reset (đã qua hộp thoại xác nhận)\nif (msg.topic === \"reset\" || msg.payload === \"reset\" || msg.payload === \"Xác nhận đặt lại\") {\n    metalCount = 0;\n    nonMetalCount = 0;\n    totalCount = 0;\n    flow.set('metalCount', 0);\n    flow.set('nonMetalCount', 0);\n    flow.set('totalCount', 0);\n    context.set('lastState', false);\n    return [\n        { payload: 0, topic: \"metal\" },         // Out 1: SP Kim loại\n        { payload: 0, topic: \"non_metal\" },     // Out 2: SP Phi kim\n        { payload: 0, topic: \"total\" },         // Out 3: Tổng sản phẩm\n        null                                    // Out 4: Kích hoạt Solenoid\n    ];\n}\n\n// 2. Xử lý nút Giả lập SP Phi kim (Demo)\nif (msg.topic === \"non_metal\" || msg.payload === \"non_metal\") {\n    nonMetalCount += 1;\n    totalCount += 1;\n    flow.set('nonMetalCount', nonMetalCount);\n    flow.set('totalCount', totalCount);\n    return [\n        null,\n        { payload: nonMetalCount, topic: \"non_metal\" },\n        { payload: totalCount, topic: \"total\" },\n        null\n    ];\n}\n\n// 3. Xử lý tín hiệu cảm biến IN1 hoặc nút test kim loại\nlet isMetal = false;\nif (Array.isArray(msg.payload)) {\n    isMetal = Boolean(msg.payload[0]);\n} else if (typeof msg.payload === \"boolean\") {\n    isMetal = msg.payload;\n}\n\n// Phát hiện sườn lên (Rising Edge: false -> true)\nif (isMetal && !lastState) {\n    context.set('lastState', true);\n    metalCount += 1;\n    totalCount += 1;\n    flow.set('metalCount', metalCount);\n    flow.set('totalCount', totalCount);\n    \n    return [\n        { payload: metalCount, topic: \"metal\" },   // Out 1: SP Kim loại\n        null,                                      // Out 2: SP Phi kim\n        { payload: totalCount, topic: \"total\" },   // Out 3: Tổng sản phẩm\n        { payload: [true], topic: \"trigger\" }      // Out 4: Kích hoạt Solenoid\n    ];\n} else if (!isMetal) {\n    context.set('lastState', false);\n}\n\nreturn null;",
+        "func": "// Khởi tạo các biến nếu chưa có\nlet metalCount = flow.get('metalCount') || 0;\nlet nonMetalCount = flow.get('nonMetalCount') || 0;\nlet totalCount = flow.get('totalCount') || 0;\nlet lastState = context.get('lastState') || false;\n\n// 0. Khởi tạo dữ liệu hiển thị ban đầu (Startup)\nif (msg.topic === \"init\") {\n    return [\n        { payload: metalCount, topic: \"SP Kim loại\" },\n        { payload: nonMetalCount, topic: \"SP Phi kim\" },\n        { payload: totalCount, topic: \"Tổng sản phẩm\" },\n        null\n    ];\n}\n\n// 1. Xử lý nút Reset (đã qua hộp thoại xác nhận)\nif (msg.topic === \"reset\" || msg.payload === \"reset\" || msg.payload === \"Xác nhận đặt lại\") {\n    metalCount = 0;\n    nonMetalCount = 0;\n    totalCount = 0;\n    flow.set('metalCount', 0);\n    flow.set('nonMetalCount', 0);\n    flow.set('totalCount', 0);\n    context.set('lastState', false);\n    return [\n        { payload: 0, topic: \"SP Kim loại\" },         // Out 1: SP Kim loại\n        { payload: 0, topic: \"SP Phi kim\" },          // Out 2: SP Phi kim\n        { payload: 0, topic: \"Tổng sản phẩm\" },       // Out 3: Tổng sản phẩm\n        null                                          // Out 4: Kích hoạt Solenoid\n    ];\n}\n\n// 2. Xử lý nút Giả lập SP Phi kim (Demo)\nif (msg.topic === \"non_metal\" || msg.payload === \"non_metal\") {\n    nonMetalCount += 1;\n    totalCount += 1;\n    flow.set('nonMetalCount', nonMetalCount);\n    flow.set('totalCount', totalCount);\n    return [\n        null,\n        { payload: nonMetalCount, topic: \"SP Phi kim\" },\n        { payload: totalCount, topic: \"Tổng sản phẩm\" },\n        null\n    ];\n}\n\n// 3. Xử lý tín hiệu cảm biến IN1 hoặc nút test kim loại\nlet isMetal = false;\nif (Array.isArray(msg.payload)) {\n    isMetal = Boolean(msg.payload[0]);\n} else if (typeof msg.payload === \"boolean\") {\n    isMetal = msg.payload;\n}\n\n// Phát hiện sườn lên (Rising Edge: false -> true)\nif (isMetal && !lastState) {\n    context.set('lastState', true);\n    metalCount += 1;\n    totalCount += 1;\n    flow.set('metalCount', metalCount);\n    flow.set('totalCount', totalCount);\n    \n    return [\n        { payload: metalCount, topic: \"SP Kim loại\" },\n        null,\n        { payload: totalCount, topic: \"Tổng sản phẩm\" },\n        { payload: [true], topic: \"trigger\" }      // Out 4: Kích hoạt Solenoid\n    ];\n} else if (!isMetal) {\n    context.set('lastState', false);\n}\n\nreturn null;",
         "outputs": 4,
         "timeout": 0,
         "noerr": 0,
@@ -681,14 +684,17 @@
         "wires": [
             [
                 "f1a923d8c1e40a12",
-                "e2b834a9d2f51b23"
+                "e2b834a9d2f51b23",
+                "f2e3d4c5b6a71829"
             ],
             [
                 "a1b2c3d4e5f67890",
-                "b2c3d4e5f6a78901"
+                "b2c3d4e5f6a78901",
+                "f2e3d4c5b6a71829"
             ],
             [
-                "d3c945b0e3a62c34"
+                "d3c945b0e3a62c34",
+                "f2e3d4c5b6a71829"
             ],
             [
                 "667bdb838ac3ae9d"
@@ -812,7 +818,7 @@
         "height": 1,
         "name": "SP Kim loại",
         "label": "SP Kim loại (đã phân loại):",
-        "format": "{{msg.payload}} chiếc",
+        "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
         "style": false,
@@ -833,7 +839,7 @@
         "height": 1,
         "name": "SP Phi kim",
         "label": "SP Phi kim:",
-        "format": "{{msg.payload}} chiếc",
+        "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
         "style": false,
@@ -854,7 +860,7 @@
         "height": 1,
         "name": "Tổng số SP",
         "label": "Tổng sản phẩm:",
-        "format": "{{msg.payload}} chiếc",
+        "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
         "style": false,
@@ -864,5 +870,49 @@
         "x": 650,
         "y": 200,
         "wires": []
+    },
+    {
+        "id": "f2e3d4c5b6a71829",
+        "type": "ui_chart",
+        "z": "8db70ae311f732e1",
+        "name": "Biểu đồ năng suất theo thời gian thực",
+        "group": "b67a1249b6d85a11",
+        "order": 7,
+        "width": 12,
+        "height": 6,
+        "label": "Biểu đồ năng suất theo thời gian thực",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Đang chờ dữ liệu...",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#0094ce",
+            "#ff9800",
+            "#28a745",
+            "#e6e600",
+            "#ca3838",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 930,
+        "y": 200,
+        "wires": [
+            []
+        ]
     }
 ]
